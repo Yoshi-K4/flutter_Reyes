@@ -30,14 +30,14 @@ class _AccountSettingsPageState extends State<AccountSettingsPage> {
 
     if (currentPassword.isEmpty || newPassword.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Punan ang lahat ng fields.')),
+        const SnackBar(content: Text('Please fill out all fields.')),
       );
       return;
     }
 
     if (newPassword.length < 6) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Ang bagong password ay dapat may habang hindi bababa sa 6 characters.')),
+        const SnackBar(content: Text('The new password must be at least 15 characters long.')),
       );
       return;
     }
@@ -59,7 +59,7 @@ class _AccountSettingsPageState extends State<AccountSettingsPage> {
 
         if (!mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Matagumpay na na-update ang password!')),
+          const SnackBar(content: Text('Password updated successfully!')),
         );
 
         // Linisin ang fields pagkatapos magtagumpay
@@ -68,11 +68,11 @@ class _AccountSettingsPageState extends State<AccountSettingsPage> {
       }
     } on FirebaseAuthException catch (e) {
       if (!mounted) return;
-      String message = 'May naganap na error.';
+      String message = 'An error occurred..';
       if (e.code == 'wrong-password' || e.code == 'invalid-credential') {
-        message = 'Mali ang iyong kasalukuyang password.';
+        message = 'Your current password is incorrect.';
       } else if (e.code == 'requires-recent-login') {
-        message = 'Kailangan mong mag-log in ulit bago magpalit ng password.';
+        message = 'You need to log in again before changing your password.';
       } else {
         message = e.message ?? message;
       }
@@ -97,7 +97,7 @@ class _AccountSettingsPageState extends State<AccountSettingsPage> {
       );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Nabigo ang pag-logout: $e')),
+        SnackBar(content: Text('Logout failed: $e')),
       );
     }
   }
@@ -191,7 +191,7 @@ class _AccountSettingsPageState extends State<AccountSettingsPage> {
                     height: 48,
                     child: FilledButton(
                       style: FilledButton.styleFrom(
-                        backgroundColor: const Color(0xFF5C6BC0),
+                        backgroundColor: const Color.fromARGB(255, 94, 110, 203),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
